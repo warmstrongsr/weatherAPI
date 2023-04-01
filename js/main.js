@@ -35,8 +35,9 @@ async function getcityInfo(city) {
 function buildcityCard(cityObj) {
 	// Build a card with city info
 	let card = document.createElement("div");
-	card.className = "card h-100";
+	card.className = "card h-100 opacity-60 ";
 	card.addEventListener("click", removeCard);
+	card.title = "Click to remove card";
 
 	// Create card body
 	let cardBody = document.createElement("div");
@@ -100,4 +101,5 @@ function removeCard(event) {
 	const card = event.currentTarget;
 	card.removeEventListener("click", removeCard);
 	card.remove();
+	event.targgget.parentElement.title = "Card Removed";
 }
