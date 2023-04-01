@@ -1,21 +1,30 @@
-.weather-card{
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    color: white;
-    text-shadow: 1px 1px #3a3a3a;
-    font-weight: bold;
-    text-align: center;
+body {
+	background-color: whitesmoke;
+}
+
+.weather-card {
+	border: none;
+	border-radius: 10px;
+	padding: 20px;
+	color: white;
+	text-shadow: 1px 1px #3a3a3a;
+	font-weight: bold;
+	text-align: center;
 }
 
 .sunny {
-    background-color: darkgoldenrod;
+	background-color: darkgoldenrod;
 }
 
-.rainy, .partly cloudy {
-    background-color: #506378;
+.rainy,
+.partly cloudy {
+	background-color: #506378;
 }
 
 .snow {
-    background-color: cornsilk;
+	background-color: cornsilk;
+}
+
+.card-body {
+	background-color: aqua;
 }

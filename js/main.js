@@ -1,50 +1,54 @@
 console.log(API_KEY);
 
 // Grab the form
-let form = document.getElementById('weatherForm');
-form.addEventListener('submit', handleFormSubmit);
+let form = document.getElementById("weatherForm");
+form.addEventListener("submit", handleFormSubmit);
 
-async function handleFormSubmit(event){
-    event.preventDefault(); // Prevent the event from making a new get request and refreshing page
-    console.log(event);
-    let city = event.target.city.value;
+async function handleFormSubmit(event) {
+	event.preventDefault(); // Prevent the event from making a new get request and refreshing page
+	console.log(event);
+	let city = event.target.city.value;
 
-    let cityInfo = await getcityInfo(city);
+	let cityInfo = await getcityInfo(city);
 
-    // Execute the buildcityCard function with city Info
-    buildcityCard(cityInfo);
+	// Execute the buildcityCard function with city Info
+	buildcityCard(cityInfo);
 
-    // Clear the input box at end
-    event.target.city.value = '';
+	// Clear the input box at end
+	event.target.city.value = "";
 }
 
+async function getcityInfo(city) {
+	try {
+		let response = await fetch(
+			`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
+		);
+		let data = await response.json();
+		return data;
+		console.log(response);
+	} catch (err) {
+		console.error(err);
+	}
+}
 
-async function getcityInfo(city){
-    try{
-        let response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`);
-        let data = await response.json();
-        return data;
-        console.log(response);
-    } catch(err){
-        console.error(err);
-    };
-};
-
-
-// Function that will take in a city info object and create a card 
-function buildcityCard(cityObj){
+// Function that will take in a city info object and create a card
+function buildcityCard(cityObj) {
 	// Build a card with city info
 	let card = document.createElement("div");
 	card.className = "card h-100";
+	card.addEventListener("click", removeCard);
 
 	// Create card body
 	let cardBody = document.createElement("div");
 	cardBody.className = "card-body";
 
 	// Create city name/location elements
-	let cityTitle = document.createElement("h5");
+	let cityTitle = document.createElement("h6");
+	let localTime = document.createElement("small");
 	cityTitle.innerHTML = `${cityObj.location.name}, ${cityObj.location.region}, ${cityObj.location.country}`;
-	cityTitle.className = "card-title";
+	localTime.innerHTML = `${cityObj.location.localtime}`;
+	cityTitle.className = "card-title text-center";
+	localTime.className = "card-title text-center";
 
 	// Create temp elements
 	let cityTemp = document.createElement("p");
@@ -60,7 +64,7 @@ function buildcityCard(cityObj){
 	conditionIcon.src = conditionIconUrl;
 	conditionIcon.alt = conditionText;
 	cityCondition.append(conditionIcon);
-	
+
 	cityCondition.className = "card-text";
 
 	// Wind?  might as well since I baselined Chicago
@@ -70,6 +74,7 @@ function buildcityCard(cityObj){
 
 	// Add elements to the card's body
 	cardBody.append(cityTitle);
+	cardBody.append(localTime);
 	cardBody.append(cityTemp);
 	cardBody.append(cityCondition);
 	cardBody.append(cityWind);
@@ -89,4 +94,10 @@ function buildcityCard(cityObj){
 	weatherDisplay.prepend(col);
 
 	console.log(cityObj);
+}
+
+function removeCard(event) {
+	const card = event.currentTarget;
+	card.removeEventListener("click", removeCard);
+	card.remove();
 }
