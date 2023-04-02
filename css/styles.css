@@ -4,6 +4,9 @@ body {
   
 }
 
+.span {
+  color: aliceblue;
+}
 #topright {
     background-color: rgba(207, 161, 10, 0.7);
     line-height: 12px;
@@ -44,6 +47,8 @@ body {
 
 .card-body {
 	opacity: 0.;
+  
+
 }
 
 .circle {
@@ -53,7 +58,9 @@ body {
   border-radius: 70%;
 }
 
+card {
 
+  border-color: blue;
 
-
+}
 

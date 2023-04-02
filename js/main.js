@@ -35,7 +35,7 @@ async function getcityInfo(city) {
 function buildcityCard(cityObj) {
 	// Build a card with city info
 	let card = document.createElement("div");
-	card.className = "card h-100 opacity-60 ";
+	card.className = "card h-100 border-color-primary ";
 	card.addEventListener("click", removeCard);
 	card.title = "Click to remove card";
 
@@ -47,13 +47,13 @@ function buildcityCard(cityObj) {
 	let cityTitle = document.createElement("h6");
 	let localTime = document.createElement("small");
 	cityTitle.innerHTML = `${cityObj.location.name}, ${cityObj.location.region}, ${cityObj.location.country}`;
-	localTime.innerHTML = `${cityObj.location.localtime}`;
+	localTime.innerHTML = `[${cityObj.location.localtime}]`;
 	cityTitle.className = "card-title text-center";
-	localTime.className = "card-title text-center";
+	localTime.className = "card-text text-center";
 
 	// Create temp elements
 	let cityTemp = document.createElement("p");
-	cityTemp.innerHTML = `Tempature: ${cityObj.current.temp_c}°C | (${cityObj.current.temp_f}°F) / Feels Like: ${cityObj.current.feelslike_c}°C | (${cityObj.current.feelslike_f}°F)`;
+	cityTemp.innerHTML = `Tempature: ${cityObj.current.temp_c}°C / (${cityObj.current.temp_f}°F)  |  Feels Like: ${cityObj.current.feelslike_c}°C / (${cityObj.current.feelslike_f}°F)`;
 	cityTemp.className = "card-temp";
 
 	// Condition element (*my original first)
